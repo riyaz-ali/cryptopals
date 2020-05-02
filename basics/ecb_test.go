@@ -9,6 +9,7 @@ import (
 	"testing"
 )
 
+// Challenge  #7
 func Test_ECB_Decrypt(t *testing.T) {
 	var b, _ = ioutil.ReadFile("7.txt")
 	var input, _ = DecodeBase64(b)
@@ -21,6 +22,7 @@ func Test_ECB_Decrypt(t *testing.T) {
 	t.Logf("\n%s", hex.Dump(dst))
 }
 
+// Challenge  #8
 func Test_ECB_Detect(t *testing.T) {
 	var file, _ = os.Open("8.txt")
 	defer file.Close()

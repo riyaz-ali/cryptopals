@@ -5,6 +5,7 @@ import (
 	"testing"
 )
 
+// Challenge  #11
 func TestDetectionOracle(t *testing.T) {
 	var txt = bytes.Repeat([]byte{0x97}, 16*3)
 

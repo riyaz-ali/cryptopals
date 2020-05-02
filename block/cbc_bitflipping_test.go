@@ -11,6 +11,7 @@ func TestBitFlippinOracle(t *testing.T) {
 	}
 }
 
+// Challenge  #16
 func TestBitFlippinAttack(t *testing.T) {
 	e, d := newBitFlippinOracle()
 	if !isAdmin(d(BitFlippinAttack(e))) {

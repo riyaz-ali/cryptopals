@@ -9,6 +9,7 @@ import (
 	"testing"
 )
 
+// Challenge  #10 part 1
 func TestCbcEncrypter(t *testing.T) {
 	var key = []byte{'Y', 'E', 'L', 'L', 'O', 'W', ' ', 'S', 'U', 'B', 'M', 'A', 'R', 'I', 'N', 'E'}
 	var cp, _ = aes.NewCipher(key)
@@ -28,6 +29,7 @@ func TestCbcEncrypter(t *testing.T) {
 	}
 }
 
+// Challenge  #10 part 2
 func TestCbcDecrypter(t *testing.T) {
 	var key = []byte{'Y', 'E', 'L', 'L', 'O', 'W', ' ', 'S', 'U', 'B', 'M', 'A', 'R', 'I', 'N', 'E'}
 	var cp, _ = aes.NewCipher(key)

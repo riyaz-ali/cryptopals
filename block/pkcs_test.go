@@ -7,6 +7,7 @@ import (
 	"testing"
 )
 
+// Challenge  #9
 func Test_PKCS(t *testing.T) {
 	var key = []byte{'Y', 'E', 'L', 'L', 'O', 'W', ' ', 'S', 'U', 'B', 'M', 'A', 'R', 'I', 'N', 'E'}
 
@@ -18,6 +19,7 @@ func Test_PKCS(t *testing.T) {
 	}
 }
 
+// Challenge  #15
 func TestValidatePadding(t *testing.T) {
 	var cases = []struct {
 		Input  []byte

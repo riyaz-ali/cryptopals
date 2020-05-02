@@ -2,6 +2,7 @@ package basics
 
 import "testing"
 
+// Challenge #2
 func Test_xor(t *testing.T) {
 	var input = make([][]byte, 2)
 	input[0], _ = DecodeHex("1c0111001f010100061a024b53535009181c")
