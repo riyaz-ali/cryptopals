@@ -13,7 +13,7 @@ const (
 )
 
 func DetectionOracle(in []byte) BlockMode {
-	var k = make([]byte, 16) // key isn't that important here
+	var k = make([]byte, 16) // Key isn't that important here
 	var cp, _ = aes.NewCipher(k)
 
 	var ecb = basics.NewECB(cp)

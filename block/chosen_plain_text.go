@@ -10,7 +10,7 @@ import (
 type OracleFn func([]byte) []byte
 
 func consistentEncryptOracle(secret []byte) OracleFn {
-	var k = key() // consistent but unknown
+	var k = Key() // consistent but unknown
 
 	return func(in []byte) []byte {
 		var cp, _ = aes.NewCipher(k)

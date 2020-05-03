@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-func key() []byte {
+func Key() []byte {
 	var p [16]byte
 	rand.Read(p[:])
 	return p[:]
@@ -29,7 +29,7 @@ func selector(cp cipher.Block) cipher.BlockMode {
 }
 
 func EncryptOracle(in []byte) []byte {
-	var cp, _ = aes.NewCipher(key())
+	var cp, _ = aes.NewCipher(Key())
 	var mode = selector(cp)
 
 	var pre, post = rnd(5, 10), rnd(5, 10)

@@ -10,8 +10,8 @@ import (
 
 type UserProfile map[string]string
 
-// key is a random but consistent (in a single run) key
-var k = key() //[]byte{'Y', 'E', 'L', 'L', 'O', 'W', ' ', 'S', 'U', 'B', 'M', 'A', 'R', 'I', 'N', 'E'}
+// Key is a random but consistent (in a single run) Key
+var k = Key() //[]byte{'Y', 'E', 'L', 'L', 'O', 'W', ' ', 'S', 'U', 'B', 'M', 'A', 'R', 'I', 'N', 'E'}
 
 // parse parses kv into a UserProfile
 func parse(cookie string) UserProfile {

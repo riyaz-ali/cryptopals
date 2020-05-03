@@ -21,15 +21,14 @@ func ValidatePadding(in []byte) ([]byte, error) {
 	var n = in[len(in)-1]
 
 	// make sure we are within range of input
-	if int(n) > len(in) {
+	if int(n) > len(in) || n == 0 {
 		return nil, ErrInvalidPadding
 	}
 
 	// get the last n bytes
-	var pad = in[len(in)-int(n):]
 	// and make sure the bytes are correct
-	for _, b := range pad {
-		if b != n {
+	for i := 1; i < int(n); i++ {
+		if in[len(in)-1-i] != n {
 			return nil, ErrInvalidPadding
 		}
 	}

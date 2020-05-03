@@ -9,8 +9,8 @@ import (
 )
 
 func newBitFlippinOracle() (OracleFn, OracleFn) {
-	var k = key()
-	var iv = key()
+	var k = Key()
+	var iv = Key()
 	var cp, _ = aes.NewCipher(k)
 
 	// pre- and post- fix to add to payload
