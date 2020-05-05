@@ -1,18 +1,19 @@
 package basics
 
-import "errors"
-
 // Xor applies xor operation on [a] and [b] and return the resulting byte array
-func Xor(dst, a, b []byte) (int, error) {
-	if len(a) != len(b) {
-		return -1, errors.New("inputs not of same length")
+func Xor(dst, a, b []byte) int {
+	var n = len(a)
+	if n > len(b) {
+		n = len(b)
 	}
 
-	var i = 0
-	for i < len(a) {
+	if n == 0 {
+		return 0
+	}
+
+	for i := 0; i < n; i++ {
 		dst[i] = a[i] ^ b[i]
-		i++
 	}
 
-	return i, nil
+	return n
 }

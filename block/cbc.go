@@ -50,7 +50,7 @@ func (cbc *cbcEncrypter) CryptBlocks(dst, src []byte) {
 	var blockSize = cbc.cp.BlockSize()
 	var last = cbc.iv
 	for len(src) > 0 {
-		_, _ = basics.Xor(dst[:blockSize], src[:blockSize], last)
+		_ = basics.Xor(dst[:blockSize], src[:blockSize], last)
 		cbc.cp.Encrypt(dst[:blockSize], dst[:blockSize])
 
 		last = dst[:blockSize]
@@ -82,7 +82,7 @@ func (cbc *cbcDecrypter) CryptBlocks(dst, src []byte) {
 	for i := 0; i < len(src); i += blockSize {
 		var cph = src[i : i+blockSize]
 		cbc.cp.Decrypt(dst[i:i+blockSize], cph)
-		_, _ = basics.Xor(dst[i:i+blockSize], dst[i:i+blockSize], last)
+		_ = basics.Xor(dst[i:i+blockSize], dst[i:i+blockSize], last)
 		last = cph
 	}
 

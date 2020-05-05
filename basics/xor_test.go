@@ -11,7 +11,7 @@ func Test_xor(t *testing.T) {
 	var expected = "746865206b696420646f6e277420706c6179"
 
 	var xd = make([]byte, len(input[0]))
-	_, _ = Xor(xd, input[0], input[1])
+	_ = Xor(xd, input[0], input[1])
 	if EncodeHex(xd) != expected {
 		t.Errorf("mismatched output!\nexpected '%s'\ngot '%s'", expected, EncodeHex(xd))
 	}
