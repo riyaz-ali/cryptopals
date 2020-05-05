@@ -5,10 +5,10 @@ import (
 )
 
 // Alias for [][]byte
-type matrix [][]byte
+type Matrix [][]byte
 
-// transpose performs matrix transposition and returns a new [][]byte
-func (b matrix) transpose() [][]byte {
+// Transpose performs Matrix transposition and returns a new [][]byte
+func (b Matrix) Transpose() [][]byte {
 	xl := len(b[0])              // rows
 	yl := len(b)                 // cols
 	result := make([][]byte, xl) // use rows' length for cols coz we're transposing
@@ -40,14 +40,14 @@ func BreakRepeatingKeyXOR(input []byte) ([]byte, error) {
 	}
 
 	// divide the ciphertext into blocks of length [ks]
-	var blocks = make(matrix, len(input)/keysize)
+	var blocks = make(Matrix, len(input)/keysize)
 	for i := 0; i < (len(input) / keysize); i++ {
 		var start = i * keysize
 		var end = start + keysize
 		blocks[i] = make([]byte, end-start)
 		copy(blocks[i], input[start:end])
 	}
-	blocks = blocks.transpose() // transpose the blocks
+	blocks = blocks.Transpose() // Transpose the blocks
 
 	var key = make([]byte, keysize)
 	for i, block := range blocks {
