@@ -23,21 +23,28 @@ func (b Matrix) Transpose() [][]byte {
 	return result
 }
 
-// BreakRepeatingKeyXOR breaks repeating key XOR by using algorithm defined at [https://cryptopals.com/sets/1/challenges/6]
-func BreakRepeatingKeyXOR(input []byte) ([]byte, error) {
-	// find the likely keysize
+// KeySizeFn takes in the input and returns a potential keysize for it
+type KeySizeFn func([]byte) int
+
+// HammingDistanceKeyFn is a KeySizeFn that returns a potential keysize
+// based on hamming distance between consecutive blocks
+func HammingDistanceKeyFn(input []byte) int {
 	var keysize = 0
-	{
-		var bestScore = math.MaxFloat64
-		for i := 2; i*4*2 < len(input); i++ {
-			var a, b = string(input[:i*4]), string(input[i*4 : i*4*2])
-			var score = float64(Hamming(a, b)) / float64(i)
-			if score < bestScore {
-				keysize = i
-				bestScore = score
-			}
+	var bestScore = math.MaxFloat64
+	for i := 2; i*4*2 < len(input); i++ {
+		var a, b = string(input[:i*4]), string(input[i*4 : i*4*2])
+		var score = float64(Hamming(a, b)) / float64(i)
+		if score < bestScore {
+			keysize = i
+			bestScore = score
 		}
 	}
+	return keysize
+}
+
+// BreakRepeatingKeyXOR breaks repeating key XOR by using algorithm defined at [https://cryptopals.com/sets/1/challenges/6]
+func BreakRepeatingKeyXOR(input []byte, fn KeySizeFn, scorer ScoringFunction) []byte {
+	var keysize = fn(input)
 
 	// divide the ciphertext into blocks of length [ks]
 	var blocks = make(Matrix, len(input)/keysize)
@@ -51,9 +58,9 @@ func BreakRepeatingKeyXOR(input []byte) ([]byte, error) {
 
 	var key = make([]byte, keysize)
 	for i, block := range blocks {
-		var _, k = SingleKeyCipher(block, EnglishScore(AliceInWonderland))
+		var _, k = SingleKeyCipher(block, scorer)
 		key[i] = k
 	}
 
-	return RepeatingKeyXOR(input, key), nil
+	return key
 }

@@ -2,6 +2,7 @@ package basics
 
 import (
 	"io/ioutil"
+	"unicode"
 	"unicode/utf8"
 )
 
@@ -34,6 +35,17 @@ func BuildCorpus(file string) Corpus {
 // AliceInWonderland is a Corpus (character frequency map) build from text file containing full volume of "Alice in Wonderland"
 var AliceInWonderland = BuildCorpus("aliceinwonderland.txt")
 
+// WikipediaMap is a Corpus derived from letter frequency map on wikipedia
+var WikipediaMap = Corpus{
+	'a': .08167, 'b': .01492, 'c': .02782, 'd': .04253,
+	'e': .12702, 'f': .02228, 'g': .02015, 'h': .06094,
+	'i': .06094, 'j': .00153, 'k': .00772, 'l': .04025,
+	'm': .02406, 'n': .06749, 'o': .07507, 'p': .01929,
+	'q': .00095, 'r': .05987, 's': .06327, 't': .09056,
+	'u': .02758, 'v': .00978, 'w': .02360, 'x': .00150,
+	'y': .01974, 'z': .00074, ' ': .13000,
+}
+
 // ScoringFunction defines a function that takes in an input string and outputs a score for it
 type ScoringFunction func(input string) float64
 
@@ -42,11 +54,9 @@ func EnglishScore(corpus Corpus) ScoringFunction {
 	return func(input string) float64 {
 		var sum float64
 		for _, char := range input {
-			if freq, ok := corpus[char]; ok {
-				sum += freq
-			}
+			sum += corpus[unicode.ToLower(char)]
 		}
-		return sum
+		return sum / float64(utf8.RuneCountInString(input))
 	}
 }
 
